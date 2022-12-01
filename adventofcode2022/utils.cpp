@@ -20,3 +20,9 @@ std::vector<std::string> read_lines(std::string_view filename)
     std::ifstream input_stream{filename};
     return read_lines(input_stream);
 }
+
+std::ostream &operator<<(std::ostream &out, Timer &timer)
+{
+    out << timer.elapsed() << " seconds elapsed";
+    return out;
+}
