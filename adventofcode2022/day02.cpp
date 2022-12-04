@@ -3,32 +3,13 @@
 
 int calculate_score(char opponent_move, char next_move)
 {
-    int round_score{0};
-    switch (next_move)
-    {
-    case 'A':
-        if (opponent_move == 'C')
-            round_score = 6;
-        else if (opponent_move == 'A')
-            round_score = 3;
-        break;
-    case 'B':
-        if (opponent_move == 'A')
-            round_score = 6;
-        else if (opponent_move == 'B')
-            round_score = 3;
-        break;
-    case 'C':
-        if (opponent_move == 'B')
-            round_score = 6;
-        else if (opponent_move == 'C')
-            round_score = 3;
-        break;
-    }
+    const int score_map[3][3] = {
+        {4, 8, 3},
+        {1, 5, 9},
+        {7, 2, 6}
+    };
 
-    int shape_score = next_move - 'A' + 1;
-
-    return shape_score + round_score;
+    return score_map[opponent_move - 'A'][next_move - 'A'];
 }
 
 char calculate_move(char opponent_move, char round_should_end)
