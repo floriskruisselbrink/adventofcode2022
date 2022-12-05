@@ -13,4 +13,4 @@ add_executable (day03 day03.cpp utils.h utils.cpp)
 configure_file(day03.txt . COPYONLY)
 
 add_executable (day04 day04.cpp utils.h utils.cpp)
-#configure_file(day04.txt . COPYONLY)
+configure_file(day04.txt . COPYONLY)

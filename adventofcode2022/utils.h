@@ -9,6 +9,8 @@
 std::vector<std::string> read_lines(std::istream &input_stream);
 std::vector<std::string> read_lines(std::string_view filename);
 
+std::vector<std::string> split(const std::string& source, const std::string& delimiters);
+
 class Timer
 {
 private:
