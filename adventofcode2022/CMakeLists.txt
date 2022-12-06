@@ -4,19 +4,14 @@
 
 # Add source to this project's executable.
 add_executable (day01 day01.cpp utils.h utils.cpp)
-configure_file(day01.txt . COPYONLY)
-
 add_executable (day02 day02.cpp utils.h utils.cpp)
-configure_file(day02.txt . COPYONLY)
-
 add_executable (day03 day03.cpp utils.h utils.cpp)
-configure_file(day03.txt . COPYONLY)
-
 add_executable (day04 day04.cpp utils.h utils.cpp)
-configure_file(day04.txt . COPYONLY)
-
 add_executable (day05 day05.cpp utils.h utils.cpp)
-configure_file(day05.txt . COPYONLY)
-
 add_executable (day06 day06.cpp utils.h utils.cpp)
-configure_file(day06.txt . COPYONLY)
+
+add_custom_target(copy_resources ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_CURRENT_SOURCE_DIR}/input
+    ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Copying resources into binary directory")
