@@ -17,3 +17,6 @@ configure_file(day04.txt . COPYONLY)
 
 add_executable (day05 day05.cpp utils.h utils.cpp)
 configure_file(day05.txt . COPYONLY)
+
+add_executable (day06 day06.cpp utils.h utils.cpp)
+configure_file(day06.txt . COPYONLY)
