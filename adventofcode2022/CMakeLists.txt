@@ -9,6 +9,7 @@ add_executable (day03 day03.cpp utils.h utils.cpp)
 add_executable (day04 day04.cpp utils.h utils.cpp)
 add_executable (day05 day05.cpp utils.h utils.cpp)
 add_executable (day06 day06.cpp utils.h utils.cpp)
+add_executable (day07 day07.cpp utils.h utils.cpp)
 
 add_custom_target(copy_resources ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
