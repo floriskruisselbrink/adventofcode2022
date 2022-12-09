@@ -72,6 +72,11 @@
         "queue": "cpp",
         "random": "cpp",
         "semaphore": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "__tree": "cpp",
+        "set": "cpp",
+        "map": "cpp",
+        "format": "cpp",
+        "charconv": "cpp"
     }
 }

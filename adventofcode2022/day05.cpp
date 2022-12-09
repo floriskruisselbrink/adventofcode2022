@@ -23,7 +23,6 @@ std::vector<Stack> read_stacks(std::istream &input_stream, std::size_t nr_stacks
         std::string line;
         std::getline(input_stream, line);
 
-        // std::cout << line << '\n';
         if (std::isdigit(line[1]))
             break;
 
@@ -34,7 +33,6 @@ std::vector<Stack> read_stacks(std::istream &input_stream, std::size_t nr_stacks
 
             if (isupper(line[char_index]))
             {
-                // std::cout << "Found " << line[char_index] << " for stack " << index+1 << '\n';
                 stacks[index].push_back(line[char_index]);
             }
         }
@@ -68,21 +66,13 @@ std::vector<Instruction> read_instructions(std::istream &input_stream)
 
 void move_part1(Stack &from, Stack &to, int count)
 {
-    for (size_t c = 0; c < count; c++)
-    {
-        auto crate = from.back();
-        from.pop_back();
-        to.push_back(crate);
-    }
+    to.insert(to.end(), from.rbegin(), from.rbegin() + count);
+    from.resize(from.size() - count);
 }
 
 void move_part2(Stack &from, Stack &to, int count)
 {
-    for (size_t i = from.size() - count; i < from.size(); i++)
-    {
-        auto crate = from[i];
-        to.push_back(crate);
-    }
+    to.insert(to.end(), from.end()-count, from.end());
     from.resize(from.size() - count);
 }
 
@@ -107,13 +97,20 @@ std::string solve(const std::vector<Stack> &starting_stacks, const std::vector<I
 int main()
 {
     std::cout << "AOC 2022, Day 5: Supply Stacks\n";
+    Timer timer{};
 
-    std::ifstream input_stream{"day05.txt"};
+    timer.start("Parsing input");
+    std::ifstream input_stream{"day05_large_input.txt"};
     auto stacks{read_stacks(input_stream, 9)};
     auto instructions{read_instructions(input_stream)};
+    timer.stop();
 
+    timer.start("Solving part 1");
     std::string score_part1{solve(stacks, instructions, move_part1)};
+    timer.stop();
+    timer.start("Solving part 2");
     std::string score_part2{solve(stacks, instructions, move_part2)};
+    timer.stop();
 
     std::cout << "Part 1: " << score_part1 << '\n';
     std::cout << "Part 2: " << score_part2 << '\n';

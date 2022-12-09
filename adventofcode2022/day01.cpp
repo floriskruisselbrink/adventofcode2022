@@ -13,11 +13,11 @@ int main()
 	std::vector<int> elf_calories{};
 	int current_calories{0};
 
-	std::cout << "Reading input... ";
+	timer.start("Reading input");
 	auto input{read_lines("day01.txt")};
-	std::cout << timer << '\n';
+	timer.stop();
 
-	std::cout << "Parsing input... ";
+	timer.start("Parsing input");
 	for (auto &line : input)
 	{
 		if (line.empty())
@@ -33,11 +33,11 @@ int main()
 	}
 
 	elf_calories.push_back(current_calories);
-	std::cout << timer << '\n';
+	timer.stop();
 
-	std::cout << "Sorting results... ";
+	timer.start("Sorting results");
 	std::sort(elf_calories.begin(), elf_calories.end(), std::greater());
-	std::cout << timer << '\n';
+	timer.stop();
 
 	std::cout << "Part 1: " << elf_calories[0] << '\n';
 	std::cout << "Part 2: " << elf_calories[0] + elf_calories[1] + elf_calories[2] << '\n';
