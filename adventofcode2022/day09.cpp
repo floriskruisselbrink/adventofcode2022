@@ -6,38 +6,6 @@
 #include <tuple>
 #include "utils.h"
 
-class Point
-{
-public:
-    int x{};
-    int y{};
-
-    Point(int x, int y) : x{x}, y{y} {}
-
-    friend bool operator<(const Point &a, const Point &b)
-    {
-        return std::tie(a.x, a.y) < std::tie(b.x, b.y);
-    }
-
-    friend bool operator==(const Point &a, const Point &b)
-    {
-        return (a.x == b.x) && (a.y == b.y);
-    }
-
-    Point &operator+=(const Point &b)
-    {
-        x += b.x;
-        y += b.y;
-        return *this;
-    }
-
-    friend Point operator+(Point a, const Point &b)
-    {
-        a += b;
-        return a;
-    }
-};
-
 class PlayingSpace
 {
 private:
