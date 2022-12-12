@@ -118,7 +118,7 @@ namespace aoc
         throw std::runtime_error("Could not open file");
     }
 
-    auto inline split(const std::string &source, const std::string delimiters) -> std::vector<std::string>
+    auto inline split(const std::string &source, const std::string &delimiters) -> std::vector<std::string>
     {
         std::vector<std::string> result;
 
@@ -128,10 +128,25 @@ namespace aoc
         {
             next = source.find_first_of(delimiters, current);
             result.push_back(source.substr(current, next - current));
-            current = next + 1;
+            current = next + delimiters.size();
         } while (next != std::string::npos);
 
         return result;
+    }
+
+    template <class InputIt>
+    auto inline join(InputIt first, InputIt last, const std::string &delimiter)
+    {
+        std::ostringstream result{};
+        auto current{first};
+
+        if (current != last)
+        {
+            result << *current;
+            while (++current != last) { result << delimiter << *current; }
+        }
+
+        return result.str();
     }
 
     template <typename T>
