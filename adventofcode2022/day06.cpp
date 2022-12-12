@@ -1,6 +1,5 @@
-#include <iostream>
 #include <set>
-#include "utils.h"
+#include "aoc.h"
 
 int find_marker(const std::string& input, int marker_length)
 {
@@ -18,16 +17,13 @@ int find_marker(const std::string& input, int marker_length)
     return position;
 }
 
-int main()
+template<>
+auto advent2022::day06() -> result
 {
-    std::cout << "AOC 2022, Day 6: Tuning Trouble\n";
-
-    std::string input = read_lines("day06.txt")[0];
+    std::string input = aoc::read_lines("adventofcode2022/input/day06.txt")[0];
 
     int score_part1{find_marker(input, 4)};
-    std::cout << "Part 1: " << score_part1 << '\n';
-
     int score_part2{find_marker(input, 14)};
-    std::cout << "Part 2: " << score_part2 << '\n';
-    return 0;
+
+    return aoc::result(score_part1, score_part2);
 }

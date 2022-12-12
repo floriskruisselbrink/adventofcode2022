@@ -1,10 +1,4 @@
-#include <iostream>
-#include <array>
-#include <vector>
-#include <string_view>
-#include <cctype>
-#include <algorithm>
-#include "utils.h"
+#include "aoc.h"
 
 using Stack = std::vector<char>;
 
@@ -56,7 +50,7 @@ std::vector<Instruction> read_instructions(std::istream &input_stream)
         if (!line.starts_with("move "))
             continue;
 
-        auto tokens = split(line, " ");
+        auto tokens = aoc::split(line, " ");
 
         instructions.push_back(Instruction{std::stoi(tokens[1]), std::stoi(tokens[3]) - 1, std::stoi(tokens[5]) - 1});
     }
@@ -72,7 +66,7 @@ void move_part1(Stack &from, Stack &to, int count)
 
 void move_part2(Stack &from, Stack &to, int count)
 {
-    to.insert(to.end(), from.end()-count, from.end());
+    to.insert(to.end(), from.end() - count, from.end());
     from.resize(from.size() - count);
 }
 
@@ -94,25 +88,15 @@ std::string solve(const std::vector<Stack> &starting_stacks, const std::vector<I
     return result;
 }
 
-int main()
+template <>
+auto advent2022::day05() -> result
 {
-    std::cout << "AOC 2022, Day 5: Supply Stacks\n";
-    Timer timer{};
-
-    timer.start("Parsing input");
-    std::ifstream input_stream{"day05_large_input.txt"};
+    std::ifstream input_stream{"adventofcode2022/input/day05.txt"};
     auto stacks{read_stacks(input_stream, 9)};
     auto instructions{read_instructions(input_stream)};
-    timer.stop();
 
-    timer.start("Solving part 1");
     std::string score_part1{solve(stacks, instructions, move_part1)};
-    timer.stop();
-    timer.start("Solving part 2");
     std::string score_part2{solve(stacks, instructions, move_part2)};
-    timer.stop();
 
-    std::cout << "Part 1: " << score_part1 << '\n';
-    std::cout << "Part 2: " << score_part2 << '\n';
-    return 0;
+    return aoc::result(score_part1, score_part2);
 }

@@ -1,8 +1,4 @@
-#include <algorithm>
-#include <iostream>
-#include <tuple>
-#include <vector>
-#include "utils.h"
+#include "aoc.h"
 
 class Grid
 {
@@ -115,16 +111,13 @@ int find_most_scenic_tree(const Grid &grid)
     return highest_scenic_score;
 }
 
-int main()
+template<>
+auto advent2022::day08() -> result
 {
-    std::cout << "AOC 2022, Day 8: Treetop Tree House\n";
-
-    Grid grid = read_lines("day08.txt");
+    Grid grid = aoc::read_lines("adventofcode2022/input/day08.txt");
 
     int score_part1{count_visible_trees(grid)};
-    std::cout << "Part 1: " << score_part1 << '\n';
-
     int score_part2{find_most_scenic_tree(grid)};
-    std::cout << "Part 2: " << score_part2 << '\n';
-    return 0;
+
+    return aoc::result(score_part1, score_part2);
 }

@@ -1,5 +1,4 @@
-#include <iostream>
-#include "utils.h"
+#include "aoc.h"
 
 int calculate_score(char opponent_move, char next_move)
 {
@@ -34,11 +33,10 @@ char calculate_move(char opponent_move, char round_should_end)
     return next_move;
 }
 
-int main()
+template<>
+auto advent2022::day02() -> result
 {
-    std::cout << "AOC 2022, Day 2: Rock Paper Scissors \n";
-
-    auto input{read_lines("day02.txt")};
+    auto input{aoc::read_lines("adventofcode2022/input/day02.txt")};
 
     int score_part1{0};
     int score_part2{0};
@@ -55,7 +53,6 @@ int main()
         score_part2 += calculate_score(opponent_move, my_move2);
     }
 
-    std::cout << "Part 1: " << score_part1 << '\n';
-    std::cout << "Part 2: " << score_part2 << '\n';
-    return 0;
+    return aoc::result(score_part1, score_part2);
 }
+

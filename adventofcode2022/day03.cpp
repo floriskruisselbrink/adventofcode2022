@@ -1,9 +1,4 @@
-#include <iostream>
-#include <iterator>
-#include <string>
-#include <algorithm>
-#include <cctype>
-#include "utils.h"
+#include "aoc.h"
 
 int priority(char item)
 {
@@ -70,16 +65,10 @@ int solve_part2(std::vector<std::string> &rucksacks)
     return score;
 }
 
-int main()
+template<>
+auto advent2022::day03() -> result
 {
-    std::cout << "AOC 2022, Day 3: Rucksack Reorganization\n";
+    auto input{aoc::read_lines("adventofcode2022/input/day03.txt")};
 
-    auto input{read_lines("day03.txt")};
-
-    int score_part1{solve_part1(input)};
-    std::cout << "Part 1: " << score_part1 << '\n';
-
-    int score_part2{solve_part2(input)};
-    std::cout << "Part 2: " << score_part2 << '\n';
-    return 0;
+    return aoc::result(solve_part1(input), solve_part2(input));
 }

@@ -1,9 +1,6 @@
-#include <limits>
 #include <filesystem>
-#include <iostream>
 #include <map>
-#include <vector>
-#include "utils.h"
+#include "aoc.h"
 
 namespace fs = std::filesystem;
 
@@ -16,7 +13,7 @@ std::map<fs::path, int> calculate_directory_sizes(const std::vector<std::string>
 
     for (auto &line : input)
     {
-        auto tokens = split(line, " ");
+        auto tokens = aoc::split(line, " ");
 
         if (tokens[1] == "cd")
         {
@@ -76,21 +73,19 @@ int find_smallest_over(int min_size, const std::map<fs::path, int> &directory_si
     return smallest;
 }
 
-int main()
+template<>
+auto advent2022::day07() -> result
 {
-    std::cout << "AOC 2022, Day 7: No Space Left On Device\n";
-
-    auto input = read_lines("day07.txt");
+    auto input = aoc::read_lines("adventofcode2022/input/day07.txt");
     auto directory_sizes = calculate_directory_sizes(input);
 
     int score_part1{sum_directories_smaller_than(100000, directory_sizes)};
-    std::cout << "Part 1: " << score_part1 << '\n';
 
     const int total_space{70000000};
     const int update_space{30000000};
     int unused_space{total_space - directory_sizes["/"]};
     int needed_space{update_space - unused_space};
     int score_part2{find_smallest_over(needed_space, directory_sizes)};
-    std::cout << "Part 2: " << score_part2 << '\n';
-    return 0;
+
+    return aoc::result(score_part1, score_part2);
 }

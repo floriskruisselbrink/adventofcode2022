@@ -1,6 +1,5 @@
 #include <iostream>
-#include <string>
-#include "utils.h"
+#include "aoc.h"
 
 class CpuState
 {
@@ -71,15 +70,11 @@ CpuState run(const std::vector<std::string> &input)
     return state;
 }
 
-int main()
+template<>
+auto advent2022::day10() -> result
 {
-    std::cout << "AOC 2022, Day 10: Cathode-Ray Tube\n";
-
-    auto input = read_lines("day10.txt");
+    auto input = aoc::read_lines("adventofcode2022/input/day10.txt");
     auto result = run(input);
 
-    int score_part1{result.signal_strength};
-    std::cout << "Part 1: " << score_part1 << '\n';
-    std::cout << "Part 2: (see above)\n";
-    return 0;
+    return aoc::result(result.signal_strength, "(see above)");
 }

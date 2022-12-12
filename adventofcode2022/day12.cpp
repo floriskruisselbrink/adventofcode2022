@@ -1,16 +1,12 @@
-#include <array>
-#include <iostream>
-#include <limits>
 #include <queue>
 #include <set>
-#include <string>
-#include <tuple>
-#include "utils.h"
+#include "aoc.h"
 
-constexpr auto filename{"day12.txt"};
+constexpr auto filename{"adventofcode2022/input/day12.txt"};
 constexpr auto width{67};
 constexpr auto height{41};
 
+using aoc::Point;
 using Grid = std::array<std::array<int, height>, width>;
 
 bool in_bounds(Point point)
@@ -119,15 +115,12 @@ int find_best_starting_position(const Grid &heightmap, const Grid &distances)
     return best_distance;
 }
 
-int main()
+template<>
+auto advent2022::day12() -> result
 {
-    std::cout << "AOC 2022, Day 12: Hill Climbing Algorithm\n";
-
-    auto input{read_lines(filename)};
+    auto input{aoc::read_lines(filename)};
     auto [heightmap, start, top]{parse_input(input)};
     auto distances{find_shortest_path(heightmap, top)};
 
-    std::cout << "Part 1: " << distances[start.x][start.y] << '\n';
-    std::cout << "Part 2: " << find_best_starting_position(heightmap, distances) << '\n';
-    return 0;
+    return aoc::result(distances[start.x][start.y], find_best_starting_position(heightmap, distances));
 }

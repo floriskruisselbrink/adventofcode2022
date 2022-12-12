@@ -1,10 +1,8 @@
-#include <algorithm>
-#include <iostream>
 #include <map>
 #include <set>
-#include <string>
-#include <tuple>
-#include "utils.h"
+#include "aoc.h"
+
+using aoc::Point;
 
 class PlayingSpace
 {
@@ -55,8 +53,8 @@ void PlayingSpace::followTail(Point &head, Point &next)
 
     if (std::max(std::abs(dx), std::abs(dy)) == 2)
     {
-        next.x += sign(dx);
-        next.y += sign(dy);
+        next.x += aoc::sign(dx);
+        next.y += aoc::sign(dy);
     }
 }
 
@@ -71,16 +69,9 @@ int solve(const std::vector<std::string> &input, std::size_t rope_length)
     return playingSpace.visited_by_tail();
 }
 
-int main()
+template<>
+auto advent2022::day09() -> result
 {
-    std::cout << "AOC 2022, Day 9: Rope Bridge\n";
-
-    auto input = read_lines("day09.txt");
-
-    int score_part1{solve(input, 2)};
-    std::cout << "Part 1: " << score_part1 << '\n';
-
-    int score_part2{solve(input, 10)};
-    std::cout << "Part 2: " << score_part2 << '\n';
-    return 0;
+    auto input = aoc::read_lines("adventofcode2022/input/day09.txt");
+    return aoc::result(solve(input, 2), solve(input, 10));
 }
