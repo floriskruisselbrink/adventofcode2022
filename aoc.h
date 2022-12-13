@@ -2,7 +2,9 @@
 #define __AOC_H_
 
 #include <array>
+#include <cctype>
 #include <fstream>
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <tuple>

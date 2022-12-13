@@ -77,6 +77,16 @@
         "set": "cpp",
         "map": "cpp",
         "format": "cpp",
-        "charconv": "cpp"
+        "charconv": "cpp",
+        "cinttypes": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "unordered_set": "cpp",
+        "*.tcc": "cpp",
+        "functional": "cpp",
+        "iterator": "cpp",
+        "memory_resource": "cpp",
+        "utility": "cpp",
+        "stop_token": "cpp"
     }
 }
