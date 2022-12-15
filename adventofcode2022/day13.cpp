@@ -13,10 +13,9 @@ class Packet
 {
 private:
     std::optional<int> m_value{std::nullopt};
+    PacketRefList m_packet_list{};
 
 public:
-    PacketRefList packet_list{};
-
     Packet() {}
 
     Packet(const std::string &source)
@@ -35,7 +34,7 @@ public:
         m_value = std::nullopt;
         auto next = std::make_shared<Packet>();
         next->m_value = val;
-        packet_list.push_back(next);
+        m_packet_list.push_back(next);
     }
 
     void parse(const std::string &source, std::size_t &pos)
@@ -46,7 +45,7 @@ public:
             {
                 pos++;
                 auto next = std::make_shared<Packet>();
-                packet_list.push_back(next);
+                m_packet_list.push_back(next);
                 next->parse(source, pos);
             }
             else if (source[pos] == ']')
@@ -67,7 +66,7 @@ public:
                     pos++;
                 }
                 next->m_value = std::stoi(source.substr(start, pos - start));
-                packet_list.push_back(next);
+                m_packet_list.push_back(next);
             }
         }
     }
@@ -81,16 +80,18 @@ public:
         else
         {
             out << '[';
-            for (std::size_t i{0}; i < packet.packet_list.size(); i++)
+            for (std::size_t i{0}; i < packet.m_packet_list.size(); i++)
             {
                 if (i > 0)
                     out << ',';
-                out << *(packet.packet_list[i]);
+                out << *(packet.m_packet_list[i]);
             }
             out << ']';
         }
         return out;
     }
+
+    friend auto compare(Packet &left, Packet &right, std::size_t depth) -> std::optional<bool>;
 };
 
 auto read_packets(const std::string &filename) -> std::vector<Packet>
@@ -136,11 +137,11 @@ auto compare(Packet &left, Packet &right, std::size_t depth = 0) -> std::optiona
     }
     else if (!left.has_value() && !right.has_value())
     {
-        for (std::size_t i{0}; i < left.packet_list.size(); i++)
+        for (std::size_t i{0}; i < left.m_packet_list.size(); i++)
         {
-            if (i < right.packet_list.size())
+            if (i < right.m_packet_list.size())
             {
-                if (auto cmp = compare(*left.packet_list[i], *right.packet_list[i], depth + 1); cmp.has_value())
+                if (auto cmp = compare(*left.m_packet_list[i], *right.m_packet_list[i], depth + 1); cmp.has_value())
                 {
                     return *cmp;
                 }
@@ -152,7 +153,7 @@ auto compare(Packet &left, Packet &right, std::size_t depth = 0) -> std::optiona
             }
         }
 
-        if (left.packet_list.size() < right.packet_list.size())
+        if (left.m_packet_list.size() < right.m_packet_list.size())
         {
             log(depth + 1, "- Left side ran out of items, so inputs are in the right order");
             return true;

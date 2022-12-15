@@ -130,7 +130,7 @@ namespace aoc
         {
             next = source.find_first_of(delimiters, current);
             result.push_back(source.substr(current, next - current));
-            current = next + delimiters.size();
+            current = next + 1;
         } while (next != std::string::npos);
 
         return result;
@@ -145,7 +145,10 @@ namespace aoc
         if (current != last)
         {
             result << *current;
-            while (++current != last) { result << delimiter << *current; }
+            while (++current != last)
+            {
+                result << delimiter << *current;
+            }
         }
 
         return result.str();

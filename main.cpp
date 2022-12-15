@@ -29,7 +29,7 @@ int main()
     constexpr int year{2022};
     int day = today();
 
-#if 0
+#if 1
     print_results(advent<year>{}, day);
 #else
 

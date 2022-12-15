@@ -153,7 +153,7 @@ auto parse_monkeys(const std::vector<std::string> &input, int worry_relief) -> M
         line++; // skip
 
         // "  Starting items: a, b, .."
-        auto item_list = aoc::split(input[line++].substr(18), ", ");
+        auto item_list = aoc::split(input[line++].substr(18), ",");
 
         // "  Operation: new = old # .."
         auto op_type = input[line][23];
