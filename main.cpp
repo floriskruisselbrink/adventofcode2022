@@ -7,12 +7,17 @@ void print_results(advent<YEAR> adv, int last_day=25)
 {
     std::cout << "=== Advent of Code " << YEAR << " ===" << std::endl;
 
+    aoc::Timer timer{};
+
     for (auto day = 1; day <= last_day; day++)
     {
+        timer.reset();
         auto [part1, part2] = adv(day);
         std::cout << " Day " << std::setw(2) << day
                   << ": " << std::setw(20) << part1
-                  << " / " << std::setw(20) << part2 << std::endl;
+                  << " / " << std::setw(20) << part2 
+                  << " | " << std::setw(10) << std::fixed << timer.elapsed()
+                  << std::endl;
     }
 }
 

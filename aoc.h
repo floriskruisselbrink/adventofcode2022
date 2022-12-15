@@ -4,8 +4,11 @@
 #include <algorithm>
 #include <array>
 #include <cctype>
+#include <chrono>
 #include <fstream>
 #include <iostream>
+#include <iterator>
+#include <set>
 #include <sstream>
 #include <string>
 #include <tuple>
@@ -172,7 +175,7 @@ namespace aoc
         {
             auto split{s.find_first_of(',')};
             x = std::stoi(s.substr(0, split));
-            y = std::stoi(s.substr(split+1));
+            y = std::stoi(s.substr(split + 1));
         }
 
         friend bool operator<(const Point &a, const Point &b)
@@ -205,6 +208,41 @@ namespace aoc
         }
     };
 
+    auto inline manhattan_distance(Point a, Point b) -> int
+    {
+        return std::abs(b.x - a.x) + std::abs(b.y - a.y);
+    }
+
+    class Timer
+    {
+    private:
+        using Clock = std::chrono::steady_clock;
+        using Second = std::chrono::duration<double, std::ratio<1>>;
+
+        std::chrono::time_point<Clock> m_start{Clock::now()};
+
+    public:
+        void reset()
+        {
+            m_start = Clock::now();
+        }
+
+        void start(std::string_view message)
+        {
+            reset();
+            std::cout << message << "... ";
+        }
+
+        void stop()
+        {
+            std::cout << std::setw(8) << std::fixed << elapsed() << " seconds elapsed\n";
+        }
+
+        double elapsed()
+        {
+            return std::chrono::duration_cast<Second>(Clock::now() - m_start).count();
+        }
+    };
 } // namespace aoc
 
 #endif
