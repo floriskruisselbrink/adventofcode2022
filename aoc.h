@@ -1,6 +1,7 @@
 #ifndef __AOC_H_
 #define __AOC_H_
 
+#include <algorithm>
 #include <array>
 #include <cctype>
 #include <fstream>
@@ -165,6 +166,15 @@ namespace aoc
         int x{};
         int y{};
 
+        Point() {}
+        Point(int x, int y) : x{x}, y{y} {}
+        Point(const std::string &s)
+        {
+            auto split{s.find_first_of(',')};
+            x = std::stoi(s.substr(0, split));
+            y = std::stoi(s.substr(split+1));
+        }
+
         friend bool operator<(const Point &a, const Point &b)
         {
             return std::tie(a.x, a.y) < std::tie(b.x, b.y);
@@ -186,6 +196,12 @@ namespace aoc
         {
             a += b;
             return a;
+        }
+
+        friend std::ostream &operator<<(std::ostream &out, const Point &p)
+        {
+            out << '(' << p.x << ',' << p.y << ')';
+            return out;
         }
     };
 
