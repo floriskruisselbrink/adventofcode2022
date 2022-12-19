@@ -152,8 +152,6 @@ namespace day15
             auto covered_ranges{merge_ranges(find_coverage(sensor_list, y))};
             if (covered_ranges.size() > 1)
             {
-                auto x{covered_ranges.begin()->second + 1};
-                auto x2{covered_ranges.rbegin()->first};
                 return 4'000'000L * (covered_ranges.begin()->second + 1) + y;
             }
         }
